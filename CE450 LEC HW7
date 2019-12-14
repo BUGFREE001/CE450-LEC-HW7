@@ -1,0 +1,115 @@
+
+#1
+
+
+def tree(root, branches=[]):
+    for branch in branches:
+        assert is_tree (branch), 'branches must be trees'
+    return [root] + list(branches)
+    
+def root(tree):
+    return tree[0]
+    
+def branches (tree):
+    return tree[1:]
+    
+def is_tree (tree):
+    if type(tree) != list or len (tree) < 1:
+        return False
+    for branch in branches(tree):
+        if not is_tree (branch):
+            return False
+    return True
+    
+def has_itm(t, e): 
+    if root(t)==None:
+        return False
+    if root(t)==e:
+        return True
+    for i in branches(t):
+        if has_itm(i,e):
+            return True
+    return False        
+    
+t=tree(1, [ tree(3, [tree(4), tree(5), tree(6)]), tree(2) ] )  
+print(has_itm (t,2))    
+    
+    
+    
+---------------------------------------------------------------------------------------------------------------------------
+
+
+#2
+
+def no_of_nodes(t):
+    s=0
+    if root(t)==None:
+        return s
+    s+=1
+    for i in branches(t):
+        s+=no_of_nodes(i)
+    return s
+    
+def get_sum(t): 
+    s=0
+    if root(t)==None:
+        return s
+    s+=root(t)
+    for i in branches(t):
+        s+=get_sum(i)
+    return s
+
+def ave_itm(t):
+    if root(t)==None:
+        return 0
+    total=get_sum(t)
+    no=no_of_nodes(t)
+    return total/no
+    
+t=tree(1, [ tree(3, [tree(4), tree(5), tree(6)]), tree(2) ] )  
+print(get_sum(t)) 
+print(no_of_nodes(t))
+print(ave_itm(t))    
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
+#7
+
+def largest_itm(t): 
+    if root(t)==None:
+        return 0
+    largest=root(t)
+    for i in branches(t):
+        if largest_itm(i)>largest:
+            largest=largest_itm(i)
+    return largest        
+    
+t=tree(1, [ tree(3, [tree(90), tree(5), tree(6)]), tree(2) ] )  
+print(largest_itm(t)) 
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
+#8
+
+def num_nodes(t):
+    s=0
+    if root(t)==None:
+        return s
+    s+=1
+    for i in branches(t):
+        s+=num_nodes(i)
+    return s
+    
+t = tree('reptiles',[tree('python',[tree('anaconda')]),tree('snake',[tree('cobra'),tree('viper')]),tree('chameleon')]) 
+
+print(num_nodes(t))
+
+
+
+
