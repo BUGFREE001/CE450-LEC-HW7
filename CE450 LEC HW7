@@ -99,6 +99,15 @@ def app_func_leaves(t, g):
 
 #6
 
+
+def height(tree):
+   if branches(tree) == []:
+       return 0
+   else:
+       bheights = [height(b) for b in branches(tree)] #get height of all branches
+       return 1 + max(bheights)
+       
+       
 ---------------------------------------------------------------------------------------------------------------------------
 
 
